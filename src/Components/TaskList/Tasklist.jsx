@@ -16,6 +16,20 @@ const TaskList = ({ task }) => {
                 refetch()
             })
     }
+    const handleStatusUpdate = (event) => {
+        event.preventDefault()
+        const updatedStatus = { status: event.target.status.value }
+
+        axios.patch(`http://localhost:3000/task/status/${_id}`, updatedStatus)
+            .then((response) => {
+                console.log(response)
+                refetch()
+                setActiveStatus(false)
+            })
+
+    }
+
+
     return (
         <li className="list-group-item d-flex justify-content-between align-items-start py-4">
             <div className="ms-2 me-auto">
@@ -23,7 +37,7 @@ const TaskList = ({ task }) => {
                 <p>{description}</p>
                 <p><span className="fw-bold">duration:</span> {duration} day</p>
                 {activeStatus ?
-                    <form className="w-50 ms-2 ">
+                    <form onSubmit={handleStatusUpdate} className="w-50 ms-2 ">
                         <label className="form-label fw-bold">Status:</label>
                         <select className="form-select form-select-sm p-1" name='status'>
                             <option value={status} disabled>{status}</option>
