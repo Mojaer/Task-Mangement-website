@@ -2,17 +2,18 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './Header.css'
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                <Navbar.Brand href="#home" className='font-header'>Task-Management</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mx-auto  ">
-                        <Nav.Link className='font-weight:700' href="#home">Home</Nav.Link>
-                        <Nav.Link href="#link">Link</Nav.Link>
+                    <Nav className="mx-auto">
+                        <NavLink className='text-decoration-none text-dart' to='/'>Home</NavLink>
+                        <NavLink className='text-decoration-none ms-4 text-dark' to='addTask'>Form</NavLink>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
