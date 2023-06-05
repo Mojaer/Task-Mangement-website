@@ -2,9 +2,15 @@
 
 const Footer = () => {
     return (
-        <div>
-            footer
-        </div>
+        <footer className="footer my-5">
+            <div className="container">
+                <p className="text-center">
+                    &copy; {new Date().getFullYear()} Task Management Tool. All rights reserved.
+                    <br />
+                    Made by Mojaer Ahmed.
+                </p>
+            </div>
+        </footer>
     );
 };
 
