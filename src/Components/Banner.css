@@ -1,0 +1,23 @@
+.banner {
+    height: 70vh;
+    background-image: url('../assets/Task-Management-Application.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    border-radius: 10px;
+}
+
+.overlay {
+    background-color: rgba(31, 26, 26, 0.473);
+    border-radius: 10px;
+}
+
+.banner-bg {
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    border-radius: 10px;
+    width: 50%;
+
+
+}

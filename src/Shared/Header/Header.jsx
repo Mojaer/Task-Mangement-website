@@ -13,7 +13,7 @@ const Header = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mx-auto">
                         <NavLink className='text-decoration-none text-dart' to='/'>Home</NavLink>
-                        <NavLink className='text-decoration-none ms-4 text-dark' to='addTask'>Form</NavLink>
+                        <NavLink className='text-decoration-none ms-4 text-dark' to='addTask'>Add Task</NavLink>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
