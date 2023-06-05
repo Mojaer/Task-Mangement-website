@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import ReactQuery from "../../Providers/ReactQuery/ReactQuery";
 import { useParams } from "react-router-dom";
 import loadingimg from "../../assets/loading.gif";
+import Swal from "sweetalert2";
 
 
 const UpdateTask = () => {
@@ -24,9 +25,26 @@ const UpdateTask = () => {
         const status = data.status
         const duration = data.duration
         const task = { title, description, status, duration }
-        axios.patch(`http://localhost:3000/task/${_id}`, task)
+        axios.patch(`https://task-maneger-server-mojaer.vercel.app/task/${_id}`, task)
             .then(res => {
-                console.log(res)
+                console.log(res.data)
+                if (res.data.modifiedCount > 0) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'task is updated successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                } else {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'warning',
+                        title: 'task is not updated ',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
             })
     };
 

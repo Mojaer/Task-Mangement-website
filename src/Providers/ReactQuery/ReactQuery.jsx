@@ -9,7 +9,7 @@ const ReactQuery = () => {
     const { data: tasks = [], refetch, isLoading: loading } = useQuery({
         queryKey: ['tasks'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:3000/task')
+            const res = await axios.get('https://task-maneger-server-mojaer.vercel.app/task')
             return res.data
         },
 

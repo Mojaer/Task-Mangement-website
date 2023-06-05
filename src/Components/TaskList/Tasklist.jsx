@@ -2,6 +2,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import ReactQuery from "../../Providers/ReactQuery/ReactQuery";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 
 const TaskList = ({ task }) => {
@@ -10,21 +11,57 @@ const TaskList = ({ task }) => {
     const [, refetch] = ReactQuery()
 
     const handleDelete = () => {
-        axios.delete(`http://localhost:3000/task/${_id}`)
-            .then(response => {
-                // console.log(response)
-                refetch()
-            })
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`https://task-maneger-server-mojaer.vercel.app/task/${_id}`)
+                    .then(res => {
+                        if (res.data.deletedCount > 0)
+                            refetch()
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    })
+            }
+        })
+
+
     }
     const handleStatusUpdate = (event) => {
         event.preventDefault()
         const updatedStatus = { status: event.target.status.value }
 
-        axios.patch(`http://localhost:3000/task/status/${_id}`, updatedStatus)
+        axios.patch(`https://task-maneger-server-mojaer.vercel.app/task/status/${_id}`, updatedStatus)
             .then((response) => {
-                console.log(response)
-                refetch()
-                setActiveStatus(false)
+                if (response.data.modifiedCount) {
+                    refetch()
+                    setActiveStatus(false)
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'status is updated successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                } else {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'warning',
+                        title: 'status is not updated ',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+
             })
 
     }
@@ -42,6 +79,7 @@ const TaskList = ({ task }) => {
                         <select className="form-select form-select-sm p-1" name='status'>
                             <option value={status} disabled>{status}</option>
                             <option value='in-progress'>in progress</option>
+                            <option value='pending'>pending</option>
                             <option value='completed'>Completed</option>
                         </select>
                         <input className="btn btn-sm btn-success" type="submit" value='Update' />

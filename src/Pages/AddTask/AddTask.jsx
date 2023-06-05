@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 
 
@@ -13,9 +14,17 @@ const AddTask = () => {
         const status = data.status
         const duration = data.duration
         const task = { title, description, status, duration }
-        axios.post('http://localhost:3000/task', task)
+        axios.post('https://task-maneger-server-mojaer.vercel.app/task', task)
             .then(res => {
-                console.log(res)
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Your task is added successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
             })
     };
     return (
@@ -53,6 +62,7 @@ const AddTask = () => {
                         <select className="form-select form-select-sm p-1 "
                             {...register("status", { required: true, maxLength: 20 })}>
                             <option value='in-progress'>in progress</option>
+                            <option value='pending'>Pending</option>
                             <option value='completed'>Completed</option>
                         </select>
 
